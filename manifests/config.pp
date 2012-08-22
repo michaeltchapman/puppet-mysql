@@ -30,7 +30,7 @@
 #   }
 #
 class mysql::config(
-  $root_password     = 'UNSET',
+  $root_password     = $root_password,
   $old_root_password = '',
   $bind_address      = $mysql::params::bind_address,
   $port              = $mysql::params::port,
