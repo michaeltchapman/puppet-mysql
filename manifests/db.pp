@@ -46,7 +46,7 @@ define mysql::db (
     ensure   => present,
     charset  => $charset,
     provider => 'mysql',
-    require  => Class['mysql::server'],
+    require  => Class['galera'],
   }
 
   database_user { "${user}@${host}":
