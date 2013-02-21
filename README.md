@@ -1,6 +1,11 @@
 # Mysql module for Puppet
 
+[![Build Status](https://travis-ci.org/puppetlabs/puppetlabs-mysql.png?branch=master)](https://travis-ci.org/puppetlabs/puppetlabs-mysql)
+
 This module manages mysql on Linux (RedHat/Debian) distros. A native mysql provider implements database resource type to handle database, database user, and database permission.
+
+Pluginsync needs to be enabled for this module to function properly.
+Read more about pluginsync in our [docs](http://docs.puppetlabs.com/guides/plugins_in_modules.html#enabling-pluginsync)
 
 ## Description
 
@@ -26,7 +31,7 @@ This module uses the fact osfamily which is supported by Facter 1.6.1+. If you d
       }
     }
 
-This module depends on creates_resources function which is introduced in Puppet 2.7. Users on puppet 2.6 can use the following module which provides this functionality:
+This module depends on the `creates_resources` function which is introduced in Puppet 2.7. Users on puppet 2.6 can use the following module which provides this functionality:
 
 [http://github.com/puppetlabs/puppetlabs-create_resources](http://github.com/puppetlabs/puppetlabs-create_resources)
 
@@ -115,6 +120,8 @@ The custom resources can be used in any other manifests:
 
     database_grant { 'user@localhost/database':
       privileges => ['all'] ,
+      # Or specify individual privileges with columns from the mysql.db table:
+      # privileges => ['Select_priv', 'Insert_priv', 'Update_priv', 'Delete_priv']
     }
 
 A resource default can be specified to handle dependency:
