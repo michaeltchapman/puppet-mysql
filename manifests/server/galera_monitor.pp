@@ -80,7 +80,7 @@ class mysql::server::galera_monitor(
   file { "${xinetd_dir}/mysqlchk":
     mode    => '0644',
     require => File[$xinetd_dir],
-    content => template("galera/mysqlchk"),
+    content => template("mysql/mysqlchk"),
     owner   => 'root',
     group   => 'root',  
   }
