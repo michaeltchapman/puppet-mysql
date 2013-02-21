@@ -99,7 +99,7 @@ define mysql::server::config (
     owner   => 'root',
     group   => $mysql::config::root_group,
     mode    => '0644',
-    require => Package['mysql-server'],
+    require => Package[$mysql::server::package_name],
   }
 
   if $notify_service {

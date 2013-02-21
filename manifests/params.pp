@@ -12,13 +12,18 @@
 #
 class mysql::params {
 
-  $bind_address        = '127.0.0.1'
-  $port                = 3306
-  $etc_root_password   = false
-  $ssl                 = false
-  $restart             = true
+  $bind_address          = '127.0.0.1'
+  $port                  = 3306
+  $etc_root_password     = false
+  $ssl                   = false
+  $restart               = true
+  $galera	         = false
+  $wsrep_cluster_name    = 'wsrep'
+  $wsrep_cluster_address = false
+  $wsrep_sst_username    = 'wsrep_sst'
+  $wsrep_sst_password    = 'password'
 
-  case $::operatingsystem {
+  case $::operatingsystem and ! $galera {
     'Ubuntu': {
       $service_provider = upstart
     }
@@ -89,6 +94,14 @@ class mysql::params {
       $service_name         = 'mysql'
       $client_package_name  = 'mysql-client'
       $server_package_name  = 'mysql-server'
+      $wsrep_package_name   = 'mysql-server-wsrep'
+      $galera_package_name  = 'galera'
+      $wsrep_deb_name       = 'mysql-server-wsrep-5.5.23-23.6-amd64.deb'
+      $wsrep_deb_source     = 'http://launchpad.net/codership-mysql/5.5/5.5.23-23.6/+download/mysql-server-wsrep-5.5.23-23.6-amd64.deb'
+      $galera_deb_name      = 'galera-23.2.1-amd64.deb'
+      $galera_deb_source    = 'http://launchpad.net/galera/2.x/23.2.1/+download/galera-23.2.1-amd64.deb'
+      $libaio_package_name  = 'libaio1'
+      $libssl_package_name  = 'libssl0.9.8'
       $socket               = '/var/run/mysqld/mysqld.sock'
       $pidfile              = '/var/run/mysqld/mysqld.pid'
       $config_file          = '/etc/mysql/my.cnf'
