@@ -6,18 +6,13 @@ socket    = <%= socket %>
 nice    = 0
 [mysqld]
 user    = mysql
-pid-file  = <%= pidfile %>
 socket    = <%= socket %>
 port      = <%= port %>
 basedir   = <%= basedir %>
 datadir   = <%= datadir %>
 tmpdir    = /tmp
 skip-external-locking
-
-<% if bind_address %>
 bind-address    = <%= bind_address %>
-<% end %> 
-
 key_buffer         = 16M
 max_allowed_packet = 16M
 thread_stack       = 192K
@@ -36,6 +31,8 @@ ssl-ca    = <%= ssl_ca %>
 ssl-cert  = <%= ssl_cert %>
 ssl-key   = <%= ssl_key %>
 <% end %>
+
+max_connect_errors=<%= scope.lookupvar('::max_connect_errors') %>
 
 [mysqldump]
 quick
